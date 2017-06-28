@@ -4158,6 +4158,12 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
+material-ui-chip-input@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/material-ui-chip-input/-/material-ui-chip-input-0.15.0.tgz#d44b46f28885b27e8ffeafc3e321c05832825ecf"
+  dependencies:
+    prop-types "^15.5.7"
+
 material-ui@^0.18.4:
   version "0.18.4"
   resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-0.18.4.tgz#afa0db1658d66b432ec0e0edb83727d65e6390a1"

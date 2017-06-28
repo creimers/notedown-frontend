@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import PouchDB from 'pouchdb'
-
 import {
   BrowserRouter as Router,
   Route,
@@ -26,8 +24,6 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 injectTapEventPlugin()
-
-const db = new PouchDB('notes_db')
 
 
 const Root = () => (

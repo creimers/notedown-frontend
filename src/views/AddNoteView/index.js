@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField'
 import ChipInput from 'material-ui-chip-input'
 import { withRouter } from 'react-router-dom'
 
+import { getDB } from 'utils/db'
+
 
 class AddNoteView extends Component {
 
@@ -24,7 +26,10 @@ class AddNoteView extends Component {
   }
 
   saveNote = async () => {
-    // TODO
+    let d = new Date()
+    let _id = d.toISOString()
+    let db = getDB()
+    await db.put({...this.state, _id})
     this.props.history.push('/notes')
   }
 
