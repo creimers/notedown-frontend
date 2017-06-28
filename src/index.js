@@ -1,32 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Switch
 } from 'react-router-dom'
 
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+import Body from 'components/Body'
+import Header from 'components/Header'
+import AddNoteView from 'views/AddNoteView'
 import DetailView from 'views/DetailView'
 import HomeView from 'views/HomeView'
 import ListView from 'views/ListView'
 
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
+injectTapEventPlugin()
+
 const Root = () => (
-  <Router>
-
-    <div style={{display: 'flex', justifyContent: 'space-around'}}>
-      <Link to="/">home</Link>
-      <Link to="/notes">notes</Link>
-    </div>
-
-    <Route exact path="/" component={HomeView} />
-    <Route path="/notes" component={ListView} />
-    <Route path="/notes/:noteId" component={DetailView} />
-  </Router>
+  <MuiThemeProvider>
+    <Router>
+      <div>
+        <Header />
+        <Body>
+          <Switch>
+            <Route exact path="/" component={HomeView} />
+            <Route exact path="/notes" component={ListView} />
+            <Route exact path="/notes/add" component={AddNoteView} />
+            <Route path="/notes/:noteId" component={DetailView} />
+          </Switch>
+        </Body>
+      </div>
+    </Router>
+  </MuiThemeProvider>
 )
 
 ReactDOM.render(<Root />, document.getElementById('root'));

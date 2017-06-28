@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-class DetailView extends Compoenent {
+class DetailView extends Component {
   render() {
     return <h1>DetailView</h1>
   }

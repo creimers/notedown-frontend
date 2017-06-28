@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 
+import { Link } from 'react-router-dom'
 
-class ListView extends Compoenent {
+
+class ListView extends Component {
   render() {
-    return <h1>ListView</h1>
+    return (
+      <div>
+        <h1>ListView</h1>
+        <Link to="/notes/add">add note</Link>
+      </div>
+    )
   }
 }
 
