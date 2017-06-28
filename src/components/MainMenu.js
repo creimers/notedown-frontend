@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 class MainMenu extends React.Component {
