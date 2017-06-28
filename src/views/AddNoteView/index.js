@@ -4,10 +4,6 @@ import TextField from 'material-ui/TextField'
 import ChipInput from 'material-ui-chip-input'
 import { withRouter } from 'react-router-dom'
 
-import { addNote } from 'ducks/notes'
-
-import { connect } from 'react-redux'
-
 
 class AddNoteView extends Component {
 
@@ -28,7 +24,7 @@ class AddNoteView extends Component {
   }
 
   saveNote = async () => {
-    await this.props.addNote(this.state)
+    // TODO
     this.props.history.push('/notes')
   }
 
@@ -69,16 +65,5 @@ class AddNoteView extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    
-  }
-}
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNote: note => dispatch(addNote(note))
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddNoteView))
+export default withRouter(AddNoteView)
