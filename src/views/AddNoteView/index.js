@@ -1,35 +1,17 @@
 import React, { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
-import ChipInput from 'material-ui-chip-input'
 import { withRouter } from 'react-router-dom'
 
+import NoteForm from 'components/NoteForm'
 import { getDB } from 'utils/db'
 
 
 class AddNoteView extends Component {
 
-  state = {
-    title: '',
-    tags: [],
-    body: ''
-  }
-
-  handleAddTag = (tag) => {
-    this.setState({tags: [...this.state.tags, tag]})
-  }
-
-  handleDeleteTag = (tag, index) => {
-    let tags = [...this.state.tags]
-    tags.splice(index, 1)
-    this.setState({tags})
-  }
-
-  saveNote = async () => {
+  saveNote = async (note) => {
     let d = new Date()
     let _id = d.toISOString()
     let db = getDB()
-    await db.put({...this.state, _id, created: _id})
+    await db.put({...note, _id, created: _id})
     this.props.history.push('/notes')
   }
 
@@ -37,34 +19,12 @@ class AddNoteView extends Component {
     return (
       <div>
         <h1>Add a Note</h1>
-        <div>
-          <TextField
-            floatingLabelText="Title"
-            value={this.state.title}
-            onChange={(e, value) => this.setState({'title': value})}
-          />
-        </div>
-        <div>
-          <TextField
-            floatingLabelText="Note"
-            value={this.state.body}
-            onChange={(e, value) => this.setState({'body': value})}
-            multiLine={true}
-            rows={4}
-            rowsMax={6}
-          />
-        </div>
-        <div>
-          <ChipInput
-            floatingLabelText="Tags"
-            value={this.state.tags}
-            onRequestAdd={tag => this.handleAddTag(tag)}
-            onRequestDelete={(tag, index) => this.handleDeleteTag(tag, index)}
-          />
-        </div>
-        <div>
-          <RaisedButton primary={true} label="save" onTouchTap={this.saveNote} />
-        </div>
+        <NoteForm
+          title=""
+          body=""
+          tags={[]}
+          onSave={this.saveNote}
+        />
       </div>
     )
   }
