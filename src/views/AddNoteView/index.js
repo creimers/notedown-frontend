@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import NoteForm from 'components/NoteForm'
-import { getDB } from 'utils/db'
+import { db } from 'utils/db'
 
 
 class AddNoteView extends Component {
@@ -10,8 +10,12 @@ class AddNoteView extends Component {
   saveNote = async (note) => {
     let d = new Date()
     let _id = d.toISOString()
-    let db = getDB()
-    await db.put({...note, _id, created: _id})
+    await db.put({
+      ...note,
+      _id,
+      created: _id,
+      type: 'note'
+    })
     this.props.history.push('/notes')
   }
 

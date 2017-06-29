@@ -21,7 +21,7 @@ class MainMenu extends React.Component {
         docked={this.props.docked}
         onRequestChange={() => this.props.onRequestChange()}
       >
-        {this.props.showHeader === true ? <AppBar iconElementLeft={<span></span>} /> : <span></span>}
+        <AppBar iconElementLeft={<span></span>} />
         <MenuItem onTouchTap={() => this.goToRoute('/')}>home</MenuItem>
         <MenuItem onTouchTap={() => this.goToRoute('/notes')}>notes</MenuItem>
         <MenuItem onTouchTap={() => this.goToRoute('/notes/add')}>add note</MenuItem>

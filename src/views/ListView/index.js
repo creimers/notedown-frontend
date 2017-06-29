@@ -6,7 +6,7 @@ import Snackbar from 'material-ui/Snackbar'
 
 import { Link } from 'react-router-dom'
 
-import { getDB } from 'utils/db'
+import { db } from 'utils/db'
 
 import NotePreview from './NotePreview'
 
@@ -14,7 +14,7 @@ import NotePreview from './NotePreview'
 class ListView extends Component {
 
   state = {
-    notes: {rows:[]},
+    notes: [],
     showDeleteDialog: false,
     showDeleteSnackbar: false,
     noteToDelete: undefined
@@ -25,9 +25,13 @@ class ListView extends Component {
   }
 
   getNotes = async () => {
-    let db = getDB() // TODO: put in constructor?
-    let notes = await db.allDocs({include_docs: true, descending: true})
-    this.setState({notes})
+    let notes = await db.find({
+      selector: {
+        created: {$gt: null}
+      },
+      sort: [{created: 'desc'}]
+    })
+    this.setState({notes: notes.docs})
   }
 
   showDeleteNoteDialog = (note) => {
@@ -41,7 +45,6 @@ class ListView extends Component {
   deleteNote = async () => {
     this.hideDeleteNoteDialog()
     let note = this.state.noteToDelete
-    let db = getDB()
     await db.remove(note)
     this.setState({showDeleteSnackbar: true})
     this.getNotes()
@@ -52,8 +55,8 @@ class ListView extends Component {
   }
 
   renderNotePreviews = () => {
-    if (this.state.notes.rows.length > 0) {
-      return this.state.notes.rows.map((note, index) => <NotePreview key={index} note={note.doc} onDelete={this.showDeleteNoteDialog} onEdit={this.goToEditView}/>)
+    if (this.state.notes.length > 0) {
+      return this.state.notes.map((note, index) => <NotePreview key={index} note={note} onDelete={this.showDeleteNoteDialog} onEdit={this.goToEditView}/>)
     }
     else {
       return <p>You don't have any notes yet.</p>

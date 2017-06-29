@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Snackbar from 'material-ui/Snackbar'
 
 import NoteForm from 'components/NoteForm'
-import { getDB } from 'utils/db'
+import { db } from 'utils/db'
 import { datetimeToLocaleString } from 'utils/helpers'
 
 
@@ -23,7 +23,6 @@ class EditView extends Component {
 
   getNote = async () => {
     let noteId = this.props.match.params.noteId
-    let db = getDB() // TODO: put in constructor?
     let note = await db.get(noteId)
     this.setState({note})
   }
@@ -39,7 +38,6 @@ class EditView extends Component {
       _rev: this.state.note._rev,
     }
 
-    let db = getDB() // TODO: put in constructor?
     await db.put(noteToSave)
     this.setState({showEditSuccess: true})
     this.props.history.push(`/notes/${this.state.note._id}`)
