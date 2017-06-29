@@ -40,9 +40,12 @@ class NoteForm extends Component {
   }
 
   render() {
+    const inputRowStyle = {
+      marginTop: '25px'
+    }
     return (
       <div>
-        <div>
+        <div style={inputRowStyle}>
           <TextField
             fullWidth={true}
             floatingLabelText="Title"
@@ -50,7 +53,7 @@ class NoteForm extends Component {
             onChange={(e, value) => this.setState({'title': value})}
           />
         </div>
-        <div>
+        <div style={inputRowStyle}>
           <Tabs>
             <Tab
               icon={<FontIcon color={'black'} className="material-icons">edit</FontIcon>}
@@ -75,7 +78,7 @@ class NoteForm extends Component {
             </Tab>
           </Tabs>
         </div>
-        <div>
+        <div style={inputRowStyle}>
           <ChipInput
             fullWidth={true}
             floatingLabelText="Tags"

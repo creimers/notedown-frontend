@@ -7,11 +7,12 @@ import { getDB } from 'utils/db'
 import { datetimeToLocaleString } from 'utils/helpers'
 
 import NoteAsMarkdown from 'components/NoteAsMarkdown'
+import Tags from 'components/Tags'
 
 
 class DetailView extends Component {
   state = {
-    note: {body: ''}
+    note: {body: '', tags: []}
   }
 
   componentDidMount() {
@@ -48,6 +49,7 @@ class DetailView extends Component {
           </div>
           : <span></span>
         }
+        <Tags tags={this.state.note.tags} />
         <NoteAsMarkdown source={this.state.note.body} />
       </div>
     )
