@@ -25,12 +25,17 @@ class DetailView extends Component {
     this.setState({note})
   }
 
+  goToEditView = () => {
+    let editTarget = this.props.location.pathname + '/edit'
+    this.props.history.push(editTarget)
+  }
+
   render() {
     return (
       <div>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <h1>{this.state.note.title}</h1>
-          <IconButton onTouchTap={() => console.log('edit')}>
+          <IconButton onTouchTap={this.goToEditView}>
             <FontIcon color={'black'} className="material-icons">edit</FontIcon>
           </IconButton>
         </div>
