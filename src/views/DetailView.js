@@ -21,10 +21,16 @@ class DetailView extends Component {
     this.setState({note})
   }
 
+  renderDatetime = (isoDatetime) => {
+    let d = new Date(isoDatetime)
+    return d.toLocaleString()
+  }
+
   render() {
     return (
       <div>
         <h1>{this.state.note.title}</h1>
+        <small>created: {this.renderDatetime(this.state.note.created)}</small>
         <NoteAsMarkdown source={this.state.note.body} />
       </div>
     )

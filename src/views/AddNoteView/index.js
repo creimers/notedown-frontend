@@ -29,7 +29,7 @@ class AddNoteView extends Component {
     let d = new Date()
     let _id = d.toISOString()
     let db = getDB()
-    await db.put({...this.state, _id})
+    await db.put({...this.state, _id, created: _id})
     this.props.history.push('/notes')
   }
 
