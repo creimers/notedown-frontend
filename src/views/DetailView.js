@@ -39,7 +39,15 @@ class DetailView extends Component {
             <FontIcon color={'black'} className="material-icons">edit</FontIcon>
           </IconButton>
         </div>
-        <small>created: {datetimeToLocaleString(this.state.note.created)}</small>
+        <div>
+          <small>created: {datetimeToLocaleString(this.state.note.created)}</small>
+        </div>
+        {this.state.note.edited !== undefined ? 
+          <div>
+            <small>edited: {datetimeToLocaleString(this.state.note.edited)}</small>
+          </div>
+          : <span></span>
+        }
         <NoteAsMarkdown source={this.state.note.body} />
       </div>
     )
