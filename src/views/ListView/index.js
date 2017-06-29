@@ -26,7 +26,7 @@ class ListView extends Component {
 
   getNotes = async () => {
     let db = getDB() // TODO: put in constructor?
-    let notes = await db.allDocs({include_docs: true})
+    let notes = await db.allDocs({include_docs: true, descending: true})
     this.setState({notes})
   }
 
