@@ -1,7 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+
 import { Link } from 'react-router-dom'
 
 import Tags from 'components/Tags'
@@ -13,9 +17,22 @@ const NotePreview = (props) => (
       <h3>
         <Link style={{color: 'black'}}to={`/notes/${props.note._id}`}>{props.note.title}</Link>
       </h3>
-      <IconButton onTouchTap={() => props.onDelete(props.note)}>
-        <FontIcon color={'black'} className="material-icons">close</FontIcon>
-      </IconButton>
+      <IconMenu
+        iconButtonElement={<IconButton><FontIcon color={'black'} className="material-icons">more_horiz</FontIcon></IconButton>}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem
+          primaryText="edit"
+          leftIcon={<FontIcon color={'black'} className="material-icons">edit</FontIcon>}
+          onTouchTap={() => props.onEdit(props.note)}
+        />
+        <MenuItem
+          primaryText="delete"
+          leftIcon={<FontIcon color={'black'} className="material-icons">close</FontIcon>}
+          onTouchTap={() => props.onDelete(props.note)}
+        />
+      </IconMenu>
     </div>
     <Tags tags={props.note.tags}/>
   </div>
@@ -23,7 +40,8 @@ const NotePreview = (props) => (
 
 NotePreview.propTypes = {
   note: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired
 }
 
 export default NotePreview

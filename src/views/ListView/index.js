@@ -47,9 +47,13 @@ class ListView extends Component {
     this.getNotes()
   }
 
+  goToEditView = (note) => {
+    this.props.history.push(`/notes/${note._id}/edit`)
+  }
+
   renderNotePreviews = () => {
     if (this.state.notes.rows.length > 0) {
-      return this.state.notes.rows.map((note, index) => <NotePreview key={index} note={note.doc} onDelete={this.showDeleteNoteDialog}/>)
+      return this.state.notes.rows.map((note, index) => <NotePreview key={index} note={note.doc} onDelete={this.showDeleteNoteDialog} onEdit={this.goToEditView}/>)
     }
     else {
       return <p>You don't have any notes yet.</p>
