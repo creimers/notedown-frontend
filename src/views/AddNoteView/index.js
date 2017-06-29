@@ -36,7 +36,7 @@ class AddNoteView extends Component {
   render() {
     return (
       <div>
-        <h1>AddNoteView</h1>
+        <h1>Add a Note</h1>
         <div>
           <TextField
             floatingLabelText="Title"

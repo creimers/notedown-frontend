@@ -5,7 +5,9 @@ import withWidth from 'material-ui/utils/withWidth'
 
 const Body = (props) => {
   let bodyStyle = {
-    paddingLeft: props.width === 3 ? 256 : 0
+    marginLeft: props.width === 3 ? 256 : 0,
+    paddingLeft: '15px',
+    paddingRight: '15px'
   }
 
   return (
