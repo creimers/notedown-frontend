@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
+import FontIcon from 'material-ui/FontIcon'
+import IconButton from 'material-ui/IconButton'
+
 import { getDB } from 'utils/db'
+import { datetimeToLocaleString } from 'utils/helpers'
 
 import NoteAsMarkdown from 'components/NoteAsMarkdown'
 
@@ -21,16 +25,16 @@ class DetailView extends Component {
     this.setState({note})
   }
 
-  renderDatetime = (isoDatetime) => {
-    let d = new Date(isoDatetime)
-    return d.toLocaleString()
-  }
-
   render() {
     return (
       <div>
-        <h1>{this.state.note.title}</h1>
-        <small>created: {this.renderDatetime(this.state.note.created)}</small>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <h1>{this.state.note.title}</h1>
+          <IconButton onTouchTap={() => console.log('edit')}>
+            <FontIcon color={'black'} className="material-icons">edit</FontIcon>
+          </IconButton>
+        </div>
+        <small>created: {datetimeToLocaleString(this.state.note.created)}</small>
         <NoteAsMarkdown source={this.state.note.body} />
       </div>
     )
