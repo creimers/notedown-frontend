@@ -9,14 +9,18 @@ import MenuItem from 'material-ui/MenuItem'
 import { Link } from 'react-router-dom'
 
 import Tags from 'components/Tags'
+import { datetimeToLocaleString } from 'utils/helpers'
 
 
 const NotePreview = (props) => (
   <div style={{marginTop: '25px', marginBottom: '25px'}}>
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-      <h3>
-        <Link style={{color: 'black'}}to={`/notes/${props.note._id}`}>{props.note.title}</Link>
-      </h3>
+      <div>
+        <h3>
+          <Link style={{color: 'black'}}to={`/notes/${props.note._id}`}>{props.note.title}</Link>
+        </h3>
+        <small>{datetimeToLocaleString(props.note.created)}</small>
+      </div>
       <IconMenu
         iconButtonElement={<IconButton><FontIcon color={'black'} className="material-icons">more_horiz</FontIcon></IconButton>}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
