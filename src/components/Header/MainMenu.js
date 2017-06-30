@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
+import FontIcon from 'material-ui/FontIcon'
 import MenuItem from 'material-ui/MenuItem'
 import { withRouter } from 'react-router-dom'
 
@@ -22,9 +23,9 @@ class MainMenu extends React.Component {
         onRequestChange={() => this.props.onRequestChange()}
       >
         <AppBar iconElementLeft={<span></span>} />
-        <MenuItem onTouchTap={() => this.goToRoute('/')}>home</MenuItem>
-        <MenuItem onTouchTap={() => this.goToRoute('/notes')}>notes</MenuItem>
-        <MenuItem onTouchTap={() => this.goToRoute('/notes/add')}>add note</MenuItem>
+        <MenuItem leftIcon={<FontIcon color={'black'} className="material-icons">home</FontIcon>} onTouchTap={() => this.goToRoute('/')}>home</MenuItem>
+        <MenuItem leftIcon={<FontIcon color={'black'} className="material-icons">list</FontIcon>} onTouchTap={() => this.goToRoute('/notes')}>notes</MenuItem>
+        <MenuItem leftIcon={<FontIcon color={'black'} className="material-icons">add</FontIcon>} onTouchTap={() => this.goToRoute('/notes/add')}>add note</MenuItem>
       </Drawer>
     )
   }
