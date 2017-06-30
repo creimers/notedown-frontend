@@ -9,7 +9,6 @@ import { withRouter } from 'react-router-dom'
 
 class TagsMenu extends React.Component {
   state = {
-    tags: [],
     activeTags: []
   }
 
@@ -20,9 +19,35 @@ class TagsMenu extends React.Component {
     }
   }
 
+  toggleTag = (tag) => {
+    let activeTags = this.state.activeTags
+    if (!this.state.activeTags.includes(tag)) {
+      activeTags.push(tag)
+    }
+    else {
+      let i = activeTags.findIndex(t => t === tag)
+      activeTags.splice(i, 1)
+    }
+    this.setState({activeTags})
+  }
+
   renderTags = () => {
     return this.props.tags.map((tag, index) => {
-      return <Chip key={index}>{ tag.key }</Chip>
+      let style = {
+        marginTop: '5px',
+        marginBottom: '5px',
+        cursor: 'pointer',
+      }
+      if (this.state.activeTags.includes(tag.key)) {
+        style.backgroundColor = 'red'
+      }
+      return <Chip
+                key={index}
+                style={style}
+                onTouchTap={() => this.toggleTag(tag.key)}
+              >
+                { tag.key }
+              </Chip>
     })
   }
 
@@ -35,7 +60,7 @@ class TagsMenu extends React.Component {
         onRequestChange={() => this.props.onRequestChange()}
       >
         <AppBar iconElementLeft={<span></span>} title="Tags" />
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{display: 'flex', flexDirection: 'column', paddingLeft: '10px', paddingTop: '10px'}}>
           {this.renderTags()}
         </div>
       </Drawer>
