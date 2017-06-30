@@ -8,7 +8,9 @@ const Body = (props) => {
     marginLeft: props.width === 3 ? 256 : 0,
     marginRight: props.width === 3 ? 256 : 0,
     paddingLeft: '15px',
-    paddingRight: '15px'
+    paddingRight: '15px',
+    height: 'calc(100vh - 64px)',
+    overflow: 'scroll'
   }
 
   return (

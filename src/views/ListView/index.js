@@ -6,7 +6,7 @@ import Snackbar from 'material-ui/Snackbar'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { extractTags } from 'ducks/tags'
+import { clearSelectedTags, extractTags } from 'ducks/tags'
 import { db } from 'utils/db'
 
 import NotePreview from './NotePreview'
@@ -24,6 +24,7 @@ class ListView extends Component {
   componentDidMount() {
     this.getNotes()
     this.props.getTags()
+    this.props.clearSelectedTags()
   }
 
   getNotes = async () => {
@@ -44,12 +45,17 @@ class ListView extends Component {
     this.setState({showDeleteDialog: false})
   }
 
+  hideDeleteSnackbar = () => {
+    this.setState({showDeleteSnackbar: false})
+  }
+
   deleteNote = async () => {
     this.hideDeleteNoteDialog()
     let note = this.state.noteToDelete
     await db.remove(note)
     this.setState({showDeleteSnackbar: true})
     this.getNotes()
+    this.props.getTags()
   }
 
   goToEditView = (note) => {
@@ -86,6 +92,7 @@ class ListView extends Component {
           open={this.state.showDeleteSnackbar}
           message="Note deleted."
           autoHideDuration={3000}
+          onRequestClose={() => this.hideDeleteSnackbar()}
         />
       </div>
     )
@@ -99,7 +106,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTags: () => dispatch(extractTags())
+    getTags: () => dispatch(extractTags()),
+    clearSelectedTags: () => dispatch(clearSelectedTags())
   }
 }
 
