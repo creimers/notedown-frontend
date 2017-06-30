@@ -5,6 +5,7 @@ import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 import withWidth from 'material-ui/utils/withWidth'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import MainMenu from './MainMenu'
 import TagsMenu from './TagsMenu'
@@ -45,11 +46,25 @@ class Header extends Component {
           showHeader={this.props.width===3}
           docked={this.props.width===3}
           onRequestChange={this.toggleTagsMenu}
-          tags={['eins', 'zwo']}
+          tags={this.props.tags}
         />
       </div>
     )
   }
 }
 
-export default withRouter(withWidth()(Header))
+const mapStateToProps = (state) => {
+  return {
+    tags: state.tags.tags
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+let Container = connect(mapStateToProps, mapDispatchToProps)(Header)
+
+
+export default withRouter(withWidth()(Container))

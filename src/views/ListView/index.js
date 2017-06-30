@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import Snackbar from 'material-ui/Snackbar'
-
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { extractTags } from 'ducks/tags'
 import { db } from 'utils/db'
 
 import NotePreview from './NotePreview'
@@ -22,6 +23,7 @@ class ListView extends Component {
 
   componentDidMount() {
     this.getNotes()
+    this.props.getTags()
   }
 
   getNotes = async () => {
@@ -89,4 +91,16 @@ class ListView extends Component {
     )
   }
 }
-export default ListView
+
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTags: () => dispatch(extractTags())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListView)
