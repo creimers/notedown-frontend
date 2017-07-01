@@ -7,6 +7,7 @@ import Drawer from 'material-ui/Drawer'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import { getNotes } from 'ducks/notes'
 import { toggleTag } from 'ducks/tags'
 
 
@@ -17,6 +18,11 @@ class TagsMenu extends React.Component {
     if (!this.props.docked) {
       this.props.onRequestChange()
     }
+  }
+
+  toggleSelectedTag = async (tag) => {
+    await this.props.toggleTag(tag.key)
+    this.props.getNotes()
   }
 
   renderTags = () => {
@@ -32,7 +38,7 @@ class TagsMenu extends React.Component {
       return <Chip
                 key={index}
                 style={style}
-                onTouchTap={() => this.props.toggleTag(tag.key)}
+                onTouchTap={() => this.toggleSelectedTag(tag)}
               >
                 { tag.key }
               </Chip>
@@ -71,7 +77,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleTag: (tag) => dispatch(toggleTag(tag))
+    toggleTag: (tag) => dispatch(toggleTag(tag)),
+    getNotes: () => dispatch(getNotes())
   }
 }
 

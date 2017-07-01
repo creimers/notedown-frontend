@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { clearSelectedTags, extractTags } from 'ducks/tags'
+import { getNotes } from 'ducks/notes'
+
 import { db } from 'utils/db'
 
 import NotePreview from './NotePreview'
@@ -22,19 +24,8 @@ class ListView extends Component {
   }
 
   componentDidMount() {
-    this.getNotes()
+    this.props.getNotes()
     this.props.getTags()
-    this.props.clearSelectedTags()
-  }
-
-  getNotes = async () => {
-    let notes = await db.find({
-      selector: {
-        created: {$gt: null}
-      },
-      sort: [{created: 'desc'}]
-    })
-    this.setState({notes: notes.docs})
   }
 
   showDeleteNoteDialog = (note) => {
@@ -49,12 +40,14 @@ class ListView extends Component {
     this.setState({showDeleteSnackbar: false})
   }
 
+  // TODO: put in duck
   deleteNote = async () => {
     this.hideDeleteNoteDialog()
     let note = this.state.noteToDelete
     await db.remove(note)
     this.setState({showDeleteSnackbar: true})
-    this.getNotes()
+
+    this.props.getNotes()
     this.props.getTags()
   }
 
@@ -63,8 +56,8 @@ class ListView extends Component {
   }
 
   renderNotePreviews = () => {
-    if (this.state.notes.length > 0) {
-      return this.state.notes.map((note, index) => <NotePreview key={index} note={note} onDelete={this.showDeleteNoteDialog} onEdit={this.goToEditView}/>)
+    if (this.props.notes.length > 0) {
+      return this.props.notes.map((note, index) => <NotePreview key={index} note={note} onDelete={this.showDeleteNoteDialog} onEdit={this.goToEditView}/>)
     }
     else {
       return <p>You don't have any notes yet.</p>
@@ -101,13 +94,16 @@ class ListView extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    selectedTags: state.tags.selectedTags,
+    notes: state.notes.notes
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getTags: () => dispatch(extractTags()),
-    clearSelectedTags: () => dispatch(clearSelectedTags())
+    clearSelectedTags: () => dispatch(clearSelectedTags()),
+    getNotes: () => dispatch(getNotes())
   }
 }
 

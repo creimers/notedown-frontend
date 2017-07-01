@@ -17,3 +17,17 @@ db.createIndex({
     sort: [{created: 'desc'}]
   })
 })
+
+// create tags array index
+db.createIndex({
+  index: {
+    fields: [{name: "tags.[]", type: "text"}]
+  }
+}).then(result => {
+  // return db.find({
+    // selector: {
+      // created: {$gt: null}
+    // },
+    // sort: [{created: 'desc'}]
+  // })
+})
