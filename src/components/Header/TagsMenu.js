@@ -5,6 +5,9 @@ import AppBar from 'material-ui/AppBar'
 import Chip from 'material-ui/Chip'
 import Drawer from 'material-ui/Drawer'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { toggleTag } from 'ducks/tags'
 
 
 class TagsMenu extends React.Component {
@@ -29,7 +32,7 @@ class TagsMenu extends React.Component {
       return <Chip
                 key={index}
                 style={style}
-                onTouchTap={() => this.props.onToggleTag(tag.key)}
+                onTouchTap={() => this.props.toggleTag(tag.key)}
               >
                 { tag.key }
               </Chip>
@@ -58,8 +61,20 @@ TagsMenu.propTypes = {
   docked: PropTypes.bool.isRequired,
   onRequestChange: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
-  selectedTags: PropTypes.array.isRequired,
-  onToggleTag: PropTypes.func.isRequired,
 }
 
-export default withRouter(TagsMenu)
+const mapStateToProps = (state) => {
+  return {
+    selectedTags: state.tags.selectedTags
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleTag: (tag) => dispatch(toggleTag(tag))
+  }
+}
+
+let Container = connect(mapStateToProps, mapDispatchToProps)(TagsMenu)
+
+export default withRouter(Container)

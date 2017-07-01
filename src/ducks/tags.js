@@ -71,7 +71,7 @@ const appReducer = (state=defaultState, action) => {
       return {...state, tags: action.tags, isFetching: false}
 
     case 'TOGGLE_TAG':
-      let tagsSelected = state.selectedTags
+      let tagsSelected = [...state.selectedTags]
       if (!tagsSelected.includes(action.tag)) {
         tagsSelected.push(action.tag)
       }

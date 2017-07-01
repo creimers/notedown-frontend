@@ -7,8 +7,6 @@ import withWidth from 'material-ui/utils/withWidth'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { toggleTag } from 'ducks/tags'
-
 import MainMenu from './MainMenu'
 import TagsMenu from './TagsMenu'
 
@@ -49,8 +47,6 @@ class Header extends Component {
           docked={this.props.width===3}
           onRequestChange={this.toggleTagsMenu}
           tags={this.props.tags}
-          selectedTags={this.props.selectedTags}
-          onToggleTag={this.props.toggleTag}
         />
       </div>
     )
@@ -59,14 +55,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tags: state.tags.tags,
-    selectedTags: state.tags.selectedTags,
+    tags: state.tags.tags
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleTag: (tag) => dispatch(toggleTag(tag))
   }
 }
 
