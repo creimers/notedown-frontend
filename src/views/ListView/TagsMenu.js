@@ -1,3 +1,5 @@
+// TODO: put the tags menu in the list view and toggle it via redux
+
 import React from 'react'
 import PropTypes from 'prop-types'
 

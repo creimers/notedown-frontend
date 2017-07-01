@@ -68,6 +68,7 @@ const appReducer = (state=defaultState, action) => {
       return {...state, isFetching: true}
 
     case 'EXTRACT_TAGS_SUCCESS':
+      // TODO: sort the tags alphabetically
       return {...state, tags: action.tags, isFetching: false}
 
     case 'TOGGLE_TAG':
