@@ -5,16 +5,23 @@ import FontIcon from 'material-ui/FontIcon'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import TextField from 'material-ui/TextField'
+import { connect } from 'react-redux'
 
 import ChipInput from 'material-ui-chip-input'
 
 import NoteAsMarkdown from 'components/NoteAsMarkdown'
+
+import { extractTags } from 'ducks/tags'
 
 class NoteForm extends Component {
   state = {
     title: '',
     tags: [],
     body: ''
+  }
+
+  componentDidMount() {
+    this.props.getTags()
   }
 
   componentWillReceiveProps(newProps) {
@@ -85,6 +92,8 @@ class NoteForm extends Component {
             value={this.state.tags}
             onRequestAdd={tag => this.handleAddTag(tag)}
             onRequestDelete={(tag, index) => this.handleDeleteTag(tag, index)}
+            dataSource={this.props.autocompleteTags}
+            openOnFocus={true}
           />
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
@@ -102,4 +111,16 @@ NoteForm.propTypes = {
   onSave: PropTypes.func.isRequired
 }
 
-export default NoteForm
+const mapStateToProps = (state) => {
+  return {
+    autocompleteTags: state.tags.tags.map(t => t.key)
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTags: () => dispatch(extractTags()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteForm)
