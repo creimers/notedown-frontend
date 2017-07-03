@@ -29,6 +29,15 @@ class ListView extends Component {
   componentDidMount() {
     this.props.getNotes()
     this.props.getTags()
+
+    window.addEventListener('sync', () => {
+      this.props.getNotes()
+      this.props.getTags()
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('sync', () => console.log('removed sync event listener'))
   }
 
   showDeleteNoteDialog = (note) => {

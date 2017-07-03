@@ -5,6 +5,15 @@ PouchDB.plugin(pouchdbFind)
 
 export const db = new PouchDB('notes_db')
 
+const remoteDb = new PouchDB('http://localhost:5984/notes_db')
+
+const syncEvent = new Event('sync')
+
+db.sync(remoteDb, {live: true, retry: true})
+.on('change', () => {
+  window.dispatchEvent(syncEvent)
+})
+
 db.createIndex({
   index: {
     fields: ['created']
